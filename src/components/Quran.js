@@ -72,7 +72,19 @@ function Quran() {
       >
         التفسير
       </Button>
-
+      {display === 2 ? (
+        <>
+          <ReactAudioPlayer
+            src={AudioUrl}
+            autoPlay={false}
+            controls
+            volume={1.0}
+            loop={false}
+            onPause={() => setIsPlaying(false)}
+            onEnded={() => setIsPlaying(false)}
+          />
+        </>
+      ) : null}
       <List aria-label="surahs">
         {display === 1 ? (
           <Typography
@@ -303,19 +315,6 @@ function Quran() {
               ))
             : null}
         </CardContent>
-        {display === 2 ? (
-          <>
-            <ReactAudioPlayer
-              src={AudioUrl}
-              autoPlay={false}
-              controls
-              volume={1.0}
-              loop={false}
-              onPause={() => setIsPlaying(false)}
-              onEnded={() => setIsPlaying(false)}
-            />
-          </>
-        ) : null}
       </List>
     </>
   );

@@ -28,10 +28,8 @@ import LinearProgress from "@mui/material/LinearProgress";
 import Container from "@mui/material/Container";
 import { useHistory } from "react-router-dom";
 import Quran from "./Quran";
-import NavigationBottom from "./NavigationBottom";
 import BottomNavigation from "@mui/material/BottomNavigation";
 import BottomNavigationAction from "@mui/material/BottomNavigationAction";
-
 // ICONS
 
 import OutletIcon from "@mui/icons-material/Outlet";
@@ -135,32 +133,6 @@ const Myheaven = ({ activationInterval = H20 }) => {
 
   /* Get data from localStorage */
   useEffect(() => {
-    console.log("Get Data by calling useEffect ");
-
-    // Retrieve the existing saveCar array from local storage
-    const existingSaveCar = JSON.parse(localStorage.getItem("todos")) || [];
-
-    // Iterate through the car array
-    const updatedNewTasks = tasks.map((carObj) => {
-      // Find a matching object in the existing saveCar array by id
-      const existingCarObj = existingSaveCar.find(
-        (existingObj) => existingObj.id === carObj.id
-      );
-
-      // If a matching object is found, update its capacity property
-      if (existingCarObj) {
-        return {
-          ...existingCarObj,
-          capacity: carObj.capacity || false, // Set capacity to false if it doesn't exist in the car object
-        };
-      } else {
-        return carObj; // If no matching object is found, use the original car object
-      }
-    });
-
-    // Save the updated saveCar array back to local storage
-    localStorage.setItem("todos", JSON.stringify(updatedNewTasks));
-
     const storageTodos = JSON.parse(localStorage.getItem("todos"));
     if (storageTodos === null) {
       // Use === for comparison, not =
@@ -168,6 +140,7 @@ const Myheaven = ({ activationInterval = H20 }) => {
     } else {
       setTasks(storageTodos);
     }
+    console.log("Get Data by calling useEffect ");
   }, []);
 
   /* Athkar Model */
@@ -247,7 +220,6 @@ const Myheaven = ({ activationInterval = H20 }) => {
     setmodelContent(
       "هل أنت متأكد من حذف  و تصفير جميع الارصدة والبدء من جديد!؟"
     );
-    playSound(resets);
   }
   /*=== Delete score Model ===*/
 
@@ -647,7 +619,8 @@ const Myheaven = ({ activationInterval = H20 }) => {
             variant="contained"
             color="error"
           >
-            تصفير جميع النقاط والبدء من جديد
+            {/* تصفير جميع النقاط والبدء من جديد */}
+            Reset
           </Button>
         </Paper>
 
@@ -969,6 +942,7 @@ const Myheaven = ({ activationInterval = H20 }) => {
     stateMappings.forEach((mapping) => {
       localStorage.setItem(mapping.key, JSON.stringify(mapping.state));
     });
+    playSound(resets);
   }
 
   return (
